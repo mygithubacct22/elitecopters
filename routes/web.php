@@ -11,10 +11,57 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/dboard', function () {
+    return view('dboard');
 });
 
-Auth::routes();
+Route::get('/services', function () {
+    return view('services');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
+    return view('registerpage');
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes(['reset' => false]);
+
+
+Route::group(
+    ['middleware' => 'auth'],
+    function ($router)
+    {
+        Route::resource(
+            'bookee/bookings',
+            'Bookee\BookingController',
+            [
+                'only'       => ['index', 'show', 'edit'],
+                'middleware' => 'bookee',
+                'as'         => 'bookee',
+            ]
+        );
+
+        Route::get('rentals/{rental}/book', [
+            'as'   => 'rentals.book',
+            'uses' => 'UnitRentalController@book',
+        ]);
+
+        Route::resource('bookings',
+                        'BookingController',
+                        ['only' => ['index', 'show', 'edit']]);
+    }
+);
+
+Route::resource('rentals',
+                'UnitRentalController',
+                ['only' => ['index', 'show']]);
