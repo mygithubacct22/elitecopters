@@ -113,7 +113,7 @@
 
   <div class="col-md-7">
     <a href="#">
-      <img class="img-fluid rounded mb-3 mb-md-0" src="{{ asset('images/EHX-xG90.jpg') }}" alt="">
+      <img class="img-fluid rounded mb-3 mb-md-0" src="{{ asset('images/EHX-XG90.jpg') }}" alt="">
     </a>
   </div>
   <div class="col-md-5">
